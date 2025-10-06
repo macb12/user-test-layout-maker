@@ -30,18 +30,18 @@ const Index = () => {
 
           {/* Área de trabajo con las 3 cajas de texto */}
           <div className="flex-1 p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 gap-6">
               <TextInputBox
-                title="Tareas del Test"
-                placeholder="Ej: Buscar un producto..."
+                title="Info cargada"
+                items={[]}
               />
               <TextInputBox
-                title="Observaciones"
-                placeholder="Ej: El usuario tuvo dificultad..."
+                title="Aprobados"
+                items={[]}
               />
               <TextInputBox
-                title="Comentarios"
-                placeholder="Ej: Mejorar la navegación..."
+                title="Rechazados"
+                items={[]}
               />
             </div>
           </div>

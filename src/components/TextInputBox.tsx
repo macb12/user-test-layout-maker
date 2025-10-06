@@ -1,76 +1,52 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { X, Plus } from "lucide-react";
+import { Copy } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToast } from "@/hooks/use-toast";
 
 interface TextInputBoxProps {
   title: string;
-  placeholder: string;
+  items?: string[];
 }
 
-export function TextInputBox({ title, placeholder }: TextInputBoxProps) {
-  const [items, setItems] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState("");
+export function TextInputBox({ title, items = [] }: TextInputBoxProps) {
+  const { toast } = useToast();
 
-  const handleAddItem = () => {
-    if (inputValue.trim()) {
-      setItems([...items, inputValue.trim()]);
-      setInputValue("");
-    }
-  };
-
-  const handleRemoveItem = (index: number) => {
-    setItems(items.filter((_, i) => i !== index));
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleAddItem();
-    }
+  const handleCopyAll = () => {
+    const allText = items.join("\n");
+    navigator.clipboard.writeText(allText);
+    toast({
+      title: "Copiado",
+      description: "Se ha copiado toda la información al portapapeles",
+    });
   };
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="pb-3">
+    <Card className="shadow-sm h-full">
+      <CardHeader className="pb-3 flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex gap-2">
-          <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder={placeholder}
-            className="flex-1"
-          />
-          <Button onClick={handleAddItem} size="icon">
-            <Plus className="h-4 w-4" />
+        {items.length > 0 && (
+          <Button onClick={handleCopyAll} size="sm" variant="outline">
+            <Copy className="h-4 w-4 mr-2" />
+            Copiar todo
           </Button>
-        </div>
-        
-        <ScrollArea className="h-[300px] rounded-md border p-3">
+        )}
+      </CardHeader>
+      <CardContent>
+        <ScrollArea className="h-[400px] rounded-md border p-3">
           {items.length === 0 ? (
             <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-              No hay elementos. Añade texto arriba.
+              No hay información disponible
             </div>
           ) : (
             <div className="space-y-2">
               {items.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between gap-2 p-2 rounded-md bg-muted/50 hover:bg-muted transition-colors"
+                  className="p-3 rounded-md bg-muted/30 border border-border"
                 >
                   <span className="text-sm flex-1 break-words">{item}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 shrink-0"
-                    onClick={() => handleRemoveItem(index)}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
                 </div>
               ))}
             </div>
