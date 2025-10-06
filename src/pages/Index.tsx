@@ -33,15 +33,15 @@ const Index = () => {
             <div className="grid grid-cols-1 gap-6">
               <TextInputBox
                 title="Info cargada"
-                items={[]}
+                items={["user=admin", "pass=admin12"]}
               />
               <TextInputBox
                 title="Aprobados"
-                items={[]}
+                items={["output=true", "status=approved"]}
               />
               <TextInputBox
                 title="Rechazados"
-                items={[]}
+                items={["output=true", "status=declined"]}
               />
             </div>
           </div>
