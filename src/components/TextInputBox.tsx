@@ -1,16 +1,17 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 interface TextInputBoxProps {
   title: string;
   items?: string[];
+  variant?: "default" | "success" | "destructive";
 }
 
-export function TextInputBox({ title, items = [] }: TextInputBoxProps) {
+export function TextInputBox({ title, items = [], variant = "default" }: TextInputBoxProps) {
   const { toast } = useToast();
 
   const handleCopyAll = () => {
@@ -22,8 +23,19 @@ export function TextInputBox({ title, items = [] }: TextInputBoxProps) {
     });
   };
 
+  const getItemClasses = () => {
+    switch (variant) {
+      case "success":
+        return "bg-success/10 border-success/30 text-success-foreground";
+      case "destructive":
+        return "bg-destructive/10 border-destructive/30 text-destructive-foreground";
+      default:
+        return "bg-muted/30 border-border";
+    }
+  };
+
   return (
-    <Card className="shadow-sm h-full">
+    <Card className="shadow-lg border-2 border-primary/30 bg-card/95 backdrop-blur-sm h-full">
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
         {items.length > 0 && (
@@ -34,19 +46,22 @@ export function TextInputBox({ title, items = [] }: TextInputBoxProps) {
         )}
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[400px] rounded-md border p-3">
+        <ScrollArea className="h-[400px] rounded-md border border-border/50 p-2 bg-background/50">
           {items.length === 0 ? (
             <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
               No hay información disponible
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1">
               {items.map((item, index) => (
                 <div
                   key={index}
-                  className="p-3 rounded-md bg-muted/30 border border-border"
+                  className={cn(
+                    "p-2 rounded-md border transition-all duration-200",
+                    getItemClasses()
+                  )}
                 >
-                  <span className="text-sm flex-1 break-words">{item}</span>
+                  <span className="text-sm break-words">{item}</span>
                 </div>
               ))}
             </div>

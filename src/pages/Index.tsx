@@ -34,14 +34,17 @@ const Index = () => {
               <TextInputBox
                 title="Info cargada"
                 items={["user=admin", "pass=admin12"]}
+                variant="default"
               />
               <TextInputBox
                 title="Aprobados"
                 items={["output=true", "status=approved"]}
+                variant="success"
               />
               <TextInputBox
                 title="Rechazados"
                 items={["output=true", "status=declined"]}
+                variant="destructive"
               />
             </div>
           </div>
