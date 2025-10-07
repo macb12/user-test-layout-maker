@@ -1,9 +1,60 @@
+import { useState, useRef } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { TestingSidebar } from "@/components/TestingSidebar";
 import { ActionButtons } from "@/components/ActionButtons";
 import { TextInputBox } from "@/components/TextInputBox";
 
 const Index = () => {
+  const [infoCargada, setInfoCargada] = useState<string[]>(["user=admin", "pass=admin12"]);
+  const [aprobados, setAprobados] = useState<string[]>(["output=true", "status=approved"]);
+  const [rechazados, setRechazados] = useState<string[]>(["output=true", "status=declined"]);
+  const [isRunning, setIsRunning] = useState(false);
+
+  const handleImport = (items: string[]) => {
+    setInfoCargada(items);
+  };
+
+  const handleReset = () => {
+    setInfoCargada([]);
+    setAprobados([]);
+    setRechazados([]);
+  };
+
+  const handleStart = async () => {
+    setIsRunning(true);
+    // Template para ejecutar script de selenium
+    // Nota: Selenium requiere un backend. Este es un ejemplo de cómo se estructuraría:
+    
+    /*
+    try {
+      const response = await fetch('/api/selenium/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          testData: infoCargada,
+          // Configuración del test
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Manejar resultados exitosos
+        setAprobados(prev => [...prev, ...result.approved]);
+        setRechazados(prev => [...prev, ...result.rejected]);
+      }
+    } catch (error) {
+      console.error('Error ejecutando selenium:', error);
+    } finally {
+      setIsRunning(false);
+    }
+    */
+    
+    // Por ahora, solo simulamos el inicio
+    console.log('Iniciando test con datos:', infoCargada);
+    setIsRunning(false);
+  };
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gradient-to-br from-background to-muted/30">
@@ -24,7 +75,12 @@ const Index = () => {
               </div>
             </div>
             <div className="px-4 pb-4">
-              <ActionButtons />
+              <ActionButtons 
+                onImport={handleImport}
+                onReset={handleReset}
+                onStart={handleStart}
+                isRunning={isRunning}
+              />
             </div>
           </header>
 
@@ -33,17 +89,17 @@ const Index = () => {
             <div className="grid grid-cols-1 gap-6">
               <TextInputBox
                 title="Info cargada"
-                items={["user=admin", "pass=admin12"]}
+                items={infoCargada}
                 variant="default"
               />
               <TextInputBox
                 title="Aprobados"
-                items={["output=true", "status=approved"]}
+                items={aprobados}
                 variant="success"
               />
               <TextInputBox
                 title="Rechazados"
-                items={["output=true", "status=declined"]}
+                items={rechazados}
                 variant="destructive"
               />
             </div>
