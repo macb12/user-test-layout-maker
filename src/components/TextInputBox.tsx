@@ -24,13 +24,17 @@ export function TextInputBox({ title, items = [], variant = "default" }: TextInp
   };
 
   const getItemClasses = () => {
+    return "bg-muted/30 border-border";
+  };
+
+  const getTextColor = () => {
     switch (variant) {
       case "success":
-        return "bg-success/10 border-success/30 text-success-foreground";
+        return "text-success";
       case "destructive":
-        return "bg-destructive/10 border-destructive/30 text-destructive-foreground";
+        return "text-destructive";
       default:
-        return "bg-muted/30 border-border";
+        return "";
     }
   };
 
@@ -61,7 +65,7 @@ export function TextInputBox({ title, items = [], variant = "default" }: TextInp
                     getItemClasses()
                   )}
                 >
-                  <span className="text-sm break-words">{item}</span>
+                  <span className={cn("text-sm break-words", getTextColor())}>{item}</span>
                 </div>
               ))}
             </div>
