@@ -5,17 +5,18 @@ import { useToast } from "@/hooks/use-toast";
 export function ActionButtons() {
   const { toast } = useToast();
 
-  const handleAction = (action: string) => {
+  const handleAction = (action: string, colorClass: string) => {
     toast({
       title: `Acción: ${action}`,
       description: "Funcionalidad en desarrollo",
+      className: colorClass,
     });
   };
 
   return (
     <div className="flex gap-2">
       <Button
-        onClick={() => handleAction("Iniciar Test")}
+        onClick={() => handleAction("Iniciar Test", "[&_.toast-description]:text-[hsl(var(--toast-success))]")}
         className="gap-2"
       >
         <Play className="h-4 w-4" />
@@ -23,7 +24,7 @@ export function ActionButtons() {
       </Button>
       <Button
         variant="secondary"
-        onClick={() => handleAction("Pausar")}
+        onClick={() => handleAction("Pausar", "[&_.toast-description]:text-[hsl(var(--toast-pause))]")}
         className="gap-2"
       >
         <Pause className="h-4 w-4" />
@@ -31,7 +32,7 @@ export function ActionButtons() {
       </Button>
       <Button
         variant="secondary"
-        onClick={() => handleAction("Guardar")}
+        onClick={() => handleAction("Guardar", "[&_.toast-description]:text-[hsl(var(--toast-warning))]")}
         className="gap-2"
       >
         <Save className="h-4 w-4" />
@@ -39,7 +40,7 @@ export function ActionButtons() {
       </Button>
       <Button
         variant="secondary"
-        onClick={() => handleAction("Exportar")}
+        onClick={() => handleAction("Exportar", "[&_.toast-description]:text-[hsl(var(--toast-info))]")}
         className="gap-2"
       >
         <Download className="h-4 w-4" />
@@ -47,7 +48,7 @@ export function ActionButtons() {
       </Button>
       <Button
         variant="secondary"
-        onClick={() => handleAction("Importar")}
+        onClick={() => handleAction("Importar", "[&_.toast-description]:text-[hsl(var(--toast-info))]")}
         className="gap-2"
       >
         <Upload className="h-4 w-4" />
@@ -55,7 +56,7 @@ export function ActionButtons() {
       </Button>
       <Button
         variant="outline"
-        onClick={() => handleAction("Reiniciar")}
+        onClick={() => handleAction("Reiniciar", "")}
         className="gap-2"
       >
         <RotateCcw className="h-4 w-4" />

@@ -11,6 +11,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import avatarImage from "@/assets/avatar-messenger.png";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: Home },
@@ -27,7 +28,7 @@ export function TestingSidebar() {
       <SidebarHeader className="p-6 border-b border-sidebar-border">
         <div className="flex flex-col items-center gap-3">
           <Avatar className="h-16 w-16 ring-2 ring-primary/20">
-            <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" />
+            <AvatarImage src={avatarImage} />
             <AvatarFallback>UT</AvatarFallback>
           </Avatar>
           <div className="text-center">
