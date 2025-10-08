@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, Download, Upload, RotateCcw } from "lucide-react";
+import { Play, Pause, Upload, RotateCcw, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface ActionButtonsProps {
@@ -104,11 +104,11 @@ export function ActionButtons({ onImport, onReset, onStart, isRunning }: ActionB
       </Button>
       <Button
         variant="secondary"
-        onClick={() => handleAction("Exportar", "[&_.toast-title]:text-[hsl(var(--toast-info))]", "[&_.toast-description]:text-[hsl(var(--toast-info))]")}
+        onClick={() => handleAction("Limpiar cache", "[&_.toast-title]:text-[hsl(var(--toast-info))]", "[&_.toast-description]:text-[hsl(var(--toast-info))]")}
         className="gap-2"
       >
-        <Download className="h-4 w-4" />
-        Exportar
+        <Save className="h-4 w-4" />
+        Limpiar cache
       </Button>
       <Button
         variant="secondary"
