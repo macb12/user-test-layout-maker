@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, Save, Download, Upload, RotateCcw } from "lucide-react";
+import { Play, Pause, Download, Upload, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface ActionButtonsProps {
@@ -101,14 +101,6 @@ export function ActionButtons({ onImport, onReset, onStart, isRunning }: ActionB
       >
         <Pause className="h-4 w-4" />
         Pausar
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() => handleAction("Guardar", "[&_.toast-title]:text-[hsl(var(--toast-warning))]", "[&_.toast-description]:text-[hsl(var(--toast-warning))]")}
-        className="gap-2"
-      >
-        <Save className="h-4 w-4" />
-        Guardar
       </Button>
       <Button
         variant="secondary"
