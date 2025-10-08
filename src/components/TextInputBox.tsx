@@ -38,17 +38,31 @@ export function TextInputBox({ title, items = [], variant = "default" }: TextInp
     }
   };
 
+  const getBadgeClasses = () => {
+    switch (variant) {
+      case "success":
+        return "bg-success/10 text-success border-success/20";
+      case "destructive":
+        return "bg-destructive/10 text-destructive border-destructive/20";
+      default:
+        return "";
+    }
+  };
+
   return (
     <Card className="shadow-lg border-2 border-primary/30 bg-card/95 backdrop-blur-sm h-full">
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          {title}
+        <div className="flex items-center gap-2">
+          <CardTitle className="text-lg font-semibold">{title}</CardTitle>
           {variant !== "default" && (
-            <span className={cn("text-sm font-normal", getTextColor())}>
-              ({items.length})
+            <span className={cn(
+              "px-2 py-1 rounded-md text-xs font-semibold border",
+              getBadgeClasses()
+            )}>
+              {items.length}
             </span>
           )}
-        </CardTitle>
+        </div>
         {items.length > 0 && (
           <Button onClick={handleCopyAll} size="sm" variant="outline">
             <Copy className="h-4 w-4 mr-2" />
